@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+h2 {
+  margin-bottom: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
