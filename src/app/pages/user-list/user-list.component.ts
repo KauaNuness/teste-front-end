@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +18,7 @@ import { User } from '../../models/user.model';
 export class UserListComponent implements OnInit {
 
   private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
 
   displayedColumns: string[] = [
     'id',
@@ -52,5 +54,9 @@ export class UserListComponent implements OnInit {
         console.error('Erro ao deletar usuário:', err);
       }
     });
+  }
+
+  goToCreate(): void {
+    this.router.navigate(['/users/new']);
   }
 }

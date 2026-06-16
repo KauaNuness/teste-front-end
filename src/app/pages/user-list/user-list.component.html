@@ -1,5 +1,9 @@
 <h2>Lista de Usuários</h2>
 
+<button mat-raised-button color="primary" (click)="goToCreate()">
+  Novo Usuário
+</button>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 user-table">
 
   <ng-container matColumnDef="id">
