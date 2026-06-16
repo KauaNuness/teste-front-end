@@ -30,7 +30,7 @@
     <th mat-header-cell *matHeaderCellDef>Ações</th>
     <td mat-cell *matCellDef="let user" class="actions">
 
-      <button mat-stroked-button color="primary">
+      <button mat-stroked-button color="primary" (click)="editUser(user.id)">
         Editar
       </button>
 

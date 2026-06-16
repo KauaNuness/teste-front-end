@@ -45,6 +45,18 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  goToCreate(): void {
+    this.router.navigate(['/users/new']);
+  }
+
+  editUser(id: number): void {
+    this.router.navigate(['/users/edit', id]);
+  }
+
+  viewUser(id: number): void {
+    this.router.navigate(['/users', id]);
+  }
+
   deleteUser(id: number): void {
     this.userService.delete(id).subscribe({
       next: () => {
@@ -54,9 +66,5 @@ export class UserListComponent implements OnInit {
         console.error('Erro ao deletar usuário:', err);
       }
     });
-  }
-
-  goToCreate(): void {
-    this.router.navigate(['/users/new']);
   }
 }

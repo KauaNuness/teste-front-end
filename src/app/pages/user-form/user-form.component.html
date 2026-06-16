@@ -1,24 +1,24 @@
-<h2>Novo Usuário</h2>
+<div *ngIf="user">
 
-<form class="form-container" (ngSubmit)="save()">
+  <h2>Usuário</h2>
 
-  <mat-form-field appearance="outline" class="field">
+  <mat-form-field appearance="outline">
     <mat-label>Nome</mat-label>
-    <input matInput [(ngModel)]="user.name" name="name" />
+    <input matInput [(ngModel)]="user.name" name="name">
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
+  <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="user.email" name="email" />
+    <input matInput [(ngModel)]="user.email" name="email">
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
+  <mat-form-field appearance="outline">
     <mat-label>Telefone</mat-label>
-    <input matInput [(ngModel)]="user.phone" name="phone" />
+    <input matInput [(ngModel)]="user.phone" name="phone">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">
+  <button mat-raised-button color="primary" (click)="save()">
     Salvar
   </button>
 
-</form>
+</div>
