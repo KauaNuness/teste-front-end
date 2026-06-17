@@ -25,10 +25,7 @@ export class UserDetailComponent implements OnInit {
 
     this.userService.findById(id).subscribe({
       next: (data) => {
-        // 🔥 FORÇA NOVA REFERÊNCIA (resolve bug de atualização)
         this.user = { ...data };
-
-        // 🔥 garante atualização imediata da view
         this.cdr.detectChanges();
       },
       error: (err) => {
