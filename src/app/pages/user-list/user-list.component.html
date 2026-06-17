@@ -8,9 +8,17 @@
         <p class="subtitle">Gerencie os cadastros de forma rápida, clara e organizada.</p>
       </div>
 
-      <button mat-raised-button color="primary" (click)="goToCreate()">
-        Novo Usuário
-      </button>
+      <div class="actions-header">
+
+        <button mat-stroked-button (click)="refresh()">
+          Atualizar
+        </button>
+
+        <button mat-raised-button color="primary" (click)="goToCreate()">
+          Novo Usuário
+        </button>
+
+      </div>
     </header>
 
     <div class="table-wrapper">
@@ -42,7 +50,6 @@
 
           <td mat-cell *matCellDef="let user" class="actions">
 
-            <!-- 👇 NOVO BOTÃO -->
             <button mat-stroked-button (click)="viewUser(user.id)">
               Ver
             </button>

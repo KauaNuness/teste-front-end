@@ -3,33 +3,46 @@
   <div class="detail-card">
 
     <header class="detail-header">
-      <p class="eyebrow">Detalhes</p>
+      <p class="eyebrow">Detalhes do usuário</p>
       <h2>{{ user.name }}</h2>
       <p class="subtitle">{{ user.email }} • {{ user.phone }}</p>
     </header>
 
     <div class="content">
 
-      <h3>Endereços</h3>
+      <div class="info-block">
+        <h3>Endereços</h3>
 
-      <div *ngIf="user.addresses?.length; else empty">
+        <div *ngIf="user.addresses?.length; else empty" class="addresses">
 
-        <div class="address" *ngFor="let a of user.addresses">
-          <strong>{{ a.street }}, {{ a.number }}</strong><br>
-          {{ a.neighborhood }} - {{ a.city }}/{{ a.state }}<br>
-          CEP: {{ a.cep }}
+          <div class="address-card" *ngFor="let a of user.addresses">
+
+            <div class="address-main">
+              <strong>{{ a.street }}, {{ a.number }}</strong>
+            </div>
+
+            <div class="address-sub">
+              {{ a.neighborhood }} • {{ a.city }}/{{ a.state }}
+            </div>
+
+            <div class="address-cep">
+              CEP: {{ a.cep }}
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
+        <ng-template #empty>
+          <p class="empty">Nenhum endereço cadastrado</p>
+        </ng-template>
 
-      <ng-template #empty>
-        <p class="empty">Nenhum endereço cadastrado</p>
-      </ng-template>
+      </div>
 
     </div>
 
     <div class="actions">
-      <button mat-raised-button (click)="back()">Voltar</button>
+      <button mat-stroked-button (click)="back()">Voltar</button>
     </div>
 
   </div>
@@ -37,5 +50,5 @@
 </section>
 
 <ng-template #loading>
-  <p style="padding: 20px;">Carregando...</p>
+  <p class="loading">Carregando...</p>
 </ng-template>
