@@ -5,8 +5,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close="false">Cancelar</button>
-  <button mat-raised-button color="warn" mat-dialog-close="true">
-    Confirmar
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="confirm()">
+    Excluir
   </button>
 </mat-dialog-actions>

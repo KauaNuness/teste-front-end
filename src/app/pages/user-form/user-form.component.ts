@@ -34,6 +34,8 @@ export class UserFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
+  loading = false;
+
   userId: number | null = null;
 
   user: any = {
@@ -50,15 +52,19 @@ export class UserFormComponent implements OnInit {
     this.userId = id ? Number(id) : null;
 
     if (this.userId) {
+      this.loading = true;
+
       this.userService.findById(this.userId).subscribe({
         next: (data) => {
           this.user = {
             ...data,
             addresses: data.addresses ?? []
           };
+          this.loading = false;
         },
         error: () => {
           this.toast.error('Erro ao carregar usuário');
+          this.loading = false;
         }
       });
     }
@@ -149,9 +155,7 @@ export class UserFormComponent implements OnInit {
 
     const errors: string[] = [];
 
-    if (!this.user.name?.trim()) {
-      errors.push('Nome é obrigatório');
-    }
+    if (!this.user.name?.trim()) errors.push('Nome é obrigatório');
 
     if (!this.user.email?.trim()) {
       errors.push('Email é obrigatório');
@@ -163,58 +167,44 @@ export class UserFormComponent implements OnInit {
       errors.push('Telefone inválido (DDD + número)');
     }
 
-    if (!this.user.addresses || this.user.addresses.length === 0) {
+    if (!this.user.addresses?.length) {
       errors.push('Adicione pelo menos um endereço');
     }
 
     this.user.addresses.forEach((addr: any, index: number) => {
 
-      if (!addr.cep) {
-        errors.push(`Endereço ${index + 1}: CEP é obrigatório`);
-      }
-
-      if (!addr.street?.trim()) {
-        errors.push(`Endereço ${index + 1}: Rua é obrigatória`);
-      }
-
-      if (!addr.number?.trim()) {
-        errors.push(`Endereço ${index + 1}: Número é obrigatório`);
-      }
-
-      if (!addr.city?.trim()) {
-        errors.push(`Endereço ${index + 1}: Cidade é obrigatória`);
-      }
-
-      if (!addr.state?.trim()) {
-        errors.push(`Endereço ${index + 1}: Estado é obrigatório`);
-      }
+      if (!addr.cep) errors.push(`Endereço ${index + 1}: CEP é obrigatório`);
+      if (!addr.street?.trim()) errors.push(`Endereço ${index + 1}: Rua é obrigatória`);
+      if (!addr.number?.trim()) errors.push(`Endereço ${index + 1}: Número é obrigatório`);
+      if (!addr.city?.trim()) errors.push(`Endereço ${index + 1}: Cidade é obrigatória`);
+      if (!addr.state?.trim()) errors.push(`Endereço ${index + 1}: Estado é obrigatório`);
     });
 
     if (errors.length > 0) {
-      errors.forEach(err => this.toast.error(err));
+      errors.forEach(e => this.toast.error(e));
       return;
     }
 
-    if (this.userId) {
-      this.userService.update(this.userId, this.user).subscribe({
-        next: () => {
-          this.toast.success('Usuário atualizado com sucesso');
-          this.router.navigate(['/users']);
-        },
-        error: () => {
-          this.toast.error('Erro ao atualizar usuário');
-        }
-      });
-    } else {
-      this.userService.create(this.user).subscribe({
-        next: () => {
-          this.toast.success('Usuário criado com sucesso');
-          this.router.navigate(['/users']);
-        },
-        error: () => {
-          this.toast.error('Erro ao criar usuário');
-        }
-      });
-    }
+    this.loading = true;
+
+    const request = this.userId
+      ? this.userService.update(this.userId, this.user)
+      : this.userService.create(this.user);
+
+    request.subscribe({
+      next: () => {
+        this.toast.success(
+          this.userId
+            ? 'Usuário atualizado com sucesso'
+            : 'Usuário criado com sucesso'
+        );
+        this.loading = false;
+        this.router.navigate(['/users']);
+      },
+      error: () => {
+        this.toast.error('Erro ao salvar usuário');
+        this.loading = false;
+      }
+    });
   }
 }

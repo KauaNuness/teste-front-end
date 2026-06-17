@@ -1,14 +1,18 @@
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
 <section class="page-shell">
+
   <div class="page-card">
 
     <header class="page-header">
+
       <div>
         <p class="eyebrow">Administração</p>
         <h2>Lista de Usuários</h2>
         <p class="subtitle">Gerencie os cadastros de forma rápida, clara e organizada.</p>
       </div>
 
-      <div class="actions-header">
+      <div class="header-actions">
 
         <button mat-stroked-button (click)="refresh()">
           Atualizar
@@ -19,6 +23,7 @@
         </button>
 
       </div>
+
     </header>
 
     <div class="table-wrapper">
@@ -63,6 +68,7 @@
             </button>
 
           </td>
+
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -77,5 +83,7 @@
       </table>
 
     </div>
+
   </div>
+
 </section>

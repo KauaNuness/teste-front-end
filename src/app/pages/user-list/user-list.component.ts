@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
 import { User } from '../../models/user.model';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-user-list',
@@ -18,7 +19,8 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
     CommonModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    LoadingSpinnerComponent
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
@@ -29,6 +31,9 @@ export class UserListComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
   private readonly dialog = inject(MatDialog);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  loading = false;
 
   displayedColumns: string[] = [
     'id',
@@ -44,20 +49,40 @@ export class UserListComponent implements OnInit {
     this.loadUsers();
   }
 
+  private setLoading(state: boolean): void {
+    this.loading = state;
+    this.cdr.detectChanges();
+  }
+
   loadUsers(): void {
+    this.setLoading(true);
+
     this.userService.findAll().subscribe({
       next: (data) => {
-        this.dataSource.data = data;
+        this.dataSource.data = data ?? [];
+        this.setLoading(false);
       },
       error: () => {
         this.toast.error('Erro ao carregar usuários');
+        this.setLoading(false);
       }
     });
   }
 
   refresh(): void {
-    this.loadUsers();
-    this.toast.success('Lista atualizada');
+    this.setLoading(true);
+
+    this.userService.findAll().subscribe({
+      next: (data) => {
+        this.dataSource.data = data ?? [];
+        this.toast.success('Lista atualizada');
+        this.setLoading(false);
+      },
+      error: () => {
+        this.toast.error('Erro ao atualizar lista');
+        this.setLoading(false);
+      }
+    });
   }
 
   deleteUser(id: number): void {
@@ -73,6 +98,8 @@ export class UserListComponent implements OnInit {
 
       if (!result) return;
 
+      this.setLoading(true);
+
       this.userService.delete(id).subscribe({
         next: () => {
           this.toast.success('Usuário deletado com sucesso');
@@ -80,6 +107,7 @@ export class UserListComponent implements OnInit {
         },
         error: () => {
           this.toast.error('Erro ao deletar usuário');
+          this.setLoading(false);
         }
       });
 
