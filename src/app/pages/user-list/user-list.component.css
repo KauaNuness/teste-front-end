@@ -1,0 +1,136 @@
+:host {
+  display: block;
+  padding: 32px 20px;
+}
+
+.page-shell {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.page-card {
+  overflow: hidden;
+  border: 1px solid rgba(105, 124, 155, 0.16);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(21, 38, 68, 0.12);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 32px;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0;
+  color: #172033;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #607089;
+}
+
+.actions-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.actions-header button:first-child {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.actions-header button:last-child {
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 0 18px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  min-width: 760px;
+  background: transparent;
+}
+
+th {
+  color: #43536c;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+td {
+  color: #273244;
+}
+
+th,
+td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #edf1f7;
+  text-align: left;
+}
+
+tr.mat-mdc-row:hover {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.actions button {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.empty {
+  padding: 42px 20px;
+  color: #7a879a;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  :host {
+    padding: 20px 12px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+  }
+
+  .actions-header {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .actions-header button {
+    flex: 1;
+  }
+}
