@@ -1,24 +1,98 @@
-<h2>Novo Usuário</h2>
+<section class="page-shell" *ngIf="user">
 
-<form class="form-container" (ngSubmit)="save()">
+  <div class="form-card">
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Nome</mat-label>
-    <input matInput [(ngModel)]="user.name" name="name" />
-  </mat-form-field>
+    <header class="form-header">
+      <p class="eyebrow">Cadastro / Atualização</p>
+      <h2>Usuário</h2>
+      <p class="subtitle">Preencha os dados principais</p>
+    </header>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="user.email" name="email" />
-  </mat-form-field>
+    <div class="form-grid">
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Telefone</mat-label>
-    <input matInput [(ngModel)]="user.phone" name="phone" />
-  </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="user.name" name="name">
+      </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">
-    Salvar
-  </button>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" name="email">
+      </mat-form-field>
 
-</form>
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input
+          matInput
+          [(ngModel)]="user.phone"
+          name="phone"
+          (ngModelChange)="onPhoneChange()"
+        >
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-header">
+      <h3>Endereços</h3>
+
+      <button mat-stroked-button type="button" (click)="addAddress()">
+        Adicionar endereço
+      </button>
+    </div>
+
+    <div class="form-grid">
+
+      <div *ngFor="let a of user.addresses; let i = index">
+
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input
+            matInput
+            [(ngModel)]="a.cep"
+            name="cep{{i}}"
+            (ngModelChange)="onCepChange(a)"
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input matInput [(ngModel)]="a.street" name="street{{i}}">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput [(ngModel)]="a.number" name="number{{i}}">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput [(ngModel)]="a.neighborhood" name="neighborhood{{i}}">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput [(ngModel)]="a.city" name="city{{i}}">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input matInput [(ngModel)]="a.state" name="state{{i}}">
+        </mat-form-field>
+
+        <button mat-stroked-button type="button" (click)="removeAddress(i)">
+          Remover
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" (click)="save()">
+        Salvar
+      </button>
+    </div>
+
+  </div>
+
+</section>

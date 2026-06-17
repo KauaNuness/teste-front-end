@@ -1,0 +1,54 @@
+<app-loading-spinner *ngIf="!user"></app-loading-spinner>
+
+<section class="page-shell" *ngIf="user">
+
+  <div class="detail-card">
+
+    <header class="detail-header">
+      <p class="eyebrow">Detalhes do usuário</p>
+      <h2>{{ user.name }}</h2>
+      <p class="subtitle">{{ user.email }} • {{ user.phone }}</p>
+    </header>
+
+    <div class="content">
+
+      <div class="info-block">
+        <h3>Endereços</h3>
+
+        <div *ngIf="user.addresses?.length; else empty" class="addresses">
+
+          <div class="address-card" *ngFor="let a of user.addresses">
+
+            <div class="address-main">
+              <strong>{{ a.street }}, {{ a.number }}</strong>
+            </div>
+
+            <div class="address-sub">
+              {{ a.neighborhood }} • {{ a.city }}/{{ a.state }}
+            </div>
+
+            <div class="address-cep">
+              CEP: {{ a.cep }}
+            </div>
+
+          </div>
+
+        </div>
+
+        <ng-template #empty>
+          <p class="empty">Nenhum endereço cadastrado</p>
+        </ng-template>
+
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button (click)="back()">
+        Voltar
+      </button>
+    </div>
+
+  </div>
+
+</section>
