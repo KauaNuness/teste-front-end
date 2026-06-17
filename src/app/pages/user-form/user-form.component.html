@@ -1,24 +1,26 @@
-<div *ngIf="user">
-
-  <h2>Usuário</h2>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Nome</mat-label>
-    <input matInput [(ngModel)]="user.name" name="name">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="user.email" name="email">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Telefone</mat-label>
-    <input matInput [(ngModel)]="user.phone" name="phone">
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" (click)="save()">
-    Salvar
-  </button>
-
-</div>
+<section class="page-shell" *ngIf="user">
+  <div class="form-card">
+    <header class="form-header">
+      <p class="eyebrow">Cadastro/Atualizar</p>
+      <h2>Usuário</h2>
+      <p class="subtitle">Preencha os dados principais para salvar o usuário.</p>
+    </header>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="user.name" name="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" name="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input matInput [(ngModel)]="user.phone" name="phone" />
+      </mat-form-field>
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+    </div>
+  </div>
+</section>

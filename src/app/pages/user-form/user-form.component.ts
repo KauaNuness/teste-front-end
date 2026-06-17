@@ -12,17 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
-  templateUrl: './user-form.component.html'
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  templateUrl: './user-form.component.html',
+  styleUrl: './user-form.component.css',
 })
 export class UserFormComponent implements OnInit {
-
   private readonly userService = inject(UserService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -31,7 +25,7 @@ export class UserFormComponent implements OnInit {
     name: '',
     email: '',
     phone: '',
-    addresses: []
+    addresses: [],
   };
 
   userId: number | null = null;
@@ -49,12 +43,12 @@ export class UserFormComponent implements OnInit {
             name: data.name ?? '',
             email: data.email ?? '',
             phone: data.phone ?? '',
-            addresses: data.addresses ?? []
+            addresses: data.addresses ?? [],
           };
         },
         error: (err) => {
           console.error('Erro ao carregar usuário', err);
-        }
+        },
       });
     }
   }
@@ -63,12 +57,12 @@ export class UserFormComponent implements OnInit {
     if (this.userId) {
       this.userService.update(this.userId, this.user).subscribe({
         next: () => this.router.navigate(['/users']),
-        error: (err) => console.error(err)
+        error: (err) => console.error(err),
       });
     } else {
       this.userService.create(this.user).subscribe({
         next: () => this.router.navigate(['/users']),
-        error: (err) => console.error(err)
+        error: (err) => console.error(err),
       });
     }
   }
