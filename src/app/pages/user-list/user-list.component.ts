@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -36,12 +36,15 @@ export class UserListComponent implements OnInit {
 
   loadUsers(): void {
     this.userService.findAll().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-      error: (err) => {
-        console.error('Erro ao buscar usuários:', err);
-      }
+      next: (data) => this.dataSource.data = data,
+      error: (err) => console.error('Erro ao buscar usuários:', err)
+    });
+  }
+
+  deleteUser(id: number): void {
+    this.userService.delete(id).subscribe({
+      next: () => this.loadUsers(),
+      error: (err) => console.error('Erro ao deletar usuário:', err)
     });
   }
 
@@ -49,22 +52,11 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/users/new']);
   }
 
-  editUser(id: number): void {
-    this.router.navigate(['/users/edit', id]);
-  }
-
   viewUser(id: number): void {
     this.router.navigate(['/users', id]);
   }
 
-  deleteUser(id: number): void {
-    this.userService.delete(id).subscribe({
-      next: () => {
-        this.loadUsers();
-      },
-      error: (err) => {
-        console.error('Erro ao deletar usuário:', err);
-      }
-    });
+  editUser(id: number): void {
+    this.router.navigate(['/users/edit', id]);
   }
 }

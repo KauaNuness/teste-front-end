@@ -1,0 +1,41 @@
+<section class="page-shell" *ngIf="user; else loading">
+
+  <div class="detail-card">
+
+    <header class="detail-header">
+      <p class="eyebrow">Detalhes</p>
+      <h2>{{ user.name }}</h2>
+      <p class="subtitle">{{ user.email }} • {{ user.phone }}</p>
+    </header>
+
+    <div class="content">
+
+      <h3>Endereços</h3>
+
+      <div *ngIf="user.addresses?.length; else empty">
+
+        <div class="address" *ngFor="let a of user.addresses">
+          <strong>{{ a.street }}, {{ a.number }}</strong><br>
+          {{ a.neighborhood }} - {{ a.city }}/{{ a.state }}<br>
+          CEP: {{ a.cep }}
+        </div>
+
+      </div>
+
+      <ng-template #empty>
+        <p class="empty">Nenhum endereço cadastrado</p>
+      </ng-template>
+
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button (click)="back()">Voltar</button>
+    </div>
+
+  </div>
+
+</section>
+
+<ng-template #loading>
+  <p style="padding: 20px;">Carregando...</p>
+</ng-template>

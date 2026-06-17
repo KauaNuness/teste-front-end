@@ -1,5 +1,6 @@
 <section class="page-shell">
   <div class="page-card">
+
     <header class="page-header">
       <div>
         <p class="eyebrow">Administração</p>
@@ -7,11 +8,15 @@
         <p class="subtitle">Gerencie os cadastros de forma rápida, clara e organizada.</p>
       </div>
 
-      <button mat-raised-button color="primary" (click)="goToCreate()">Novo Usuário</button>
+      <button mat-raised-button color="primary" (click)="goToCreate()">
+        Novo Usuário
+      </button>
     </header>
 
     <div class="table-wrapper">
+
       <table mat-table [dataSource]="dataSource" class="user-table">
+
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>ID</th>
           <td mat-cell *matCellDef="let user">{{ user.id }}</td>
@@ -34,10 +39,22 @@
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Ações</th>
-          <td mat-cell *matCellDef="let user" class="actions">
-            <button mat-stroked-button color="primary" (click)="editUser(user.id)">Editar</button>
 
-            <button mat-stroked-button color="warn" (click)="deleteUser(user.id)">Deletar</button>
+          <td mat-cell *matCellDef="let user" class="actions">
+
+            <!-- 👇 NOVO BOTÃO -->
+            <button mat-stroked-button (click)="viewUser(user.id)">
+              Ver
+            </button>
+
+            <button mat-stroked-button color="primary" (click)="editUser(user.id)">
+              Editar
+            </button>
+
+            <button mat-stroked-button color="warn" (click)="deleteUser(user.id)">
+              Deletar
+            </button>
+
           </td>
         </ng-container>
 
@@ -45,9 +62,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell empty" colspan="5">Nenhum usuário encontrado</td>
+          <td class="mat-cell empty" colspan="5">
+            Nenhum usuário encontrado
+          </td>
         </tr>
+
       </table>
+
     </div>
   </div>
 </section>
